@@ -49,4 +49,7 @@ gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rack-cors'
 gem 'rake'
 gem 'httparty'
+gem 'active_model_serializers'
+gem 'fast_jsonapi'
+gem 'kaminari'
 
