@@ -1,17 +1,35 @@
 class Api::FeaturesController < ApplicationController
   def index
-  if params[:filters].present? && params[:filters][:magType].present?
-    features = Feature.filter_by_mag_type(params[:filters][:magType])
+  if params[:mag_type].present?
+    features = Feature.filter_by_mag_type(params[:mag_type])
   else
     features = Feature.all
   end
 
   features = features.page(params[:page]).per(params[:per_page])
 
-  serialized_features = ActiveModel::Serializer::CollectionSerializer.new(
-      features,
-      serializer: FeatureSerializer
-    )
+  serialized_features = features.map do |feature|
+    {
+      id: feature.id,
+      type: 'feature',
+      attributes: {
+        external_id: feature.external_id,
+        magnitude: feature.magnitude,
+        place: feature.place,
+        time: feature.time,
+        tsunami: feature.tsunami,
+        mag_type: feature.magType,
+        title: feature.title,
+        coordinates: {
+          longitude: feature.longitude,
+          latitude: feature.latitude
+        }
+      },
+      links: {
+        external_url: feature.external_url
+      }
+    }
+  end
 
   render json: {
     data: serialized_features,
