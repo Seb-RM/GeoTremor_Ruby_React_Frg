@@ -47,5 +47,6 @@ end
 
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rack-cors'
+gem 'rake'
 gem 'httparty'
 

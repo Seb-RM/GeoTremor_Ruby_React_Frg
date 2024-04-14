@@ -30,5 +30,14 @@ module Server
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.after_initialize do
+      if Feature.exists?
+        puts "Los datos de los terremotos ya existen en la base de datos."
+      else
+        puts "Iniciando la tarea para obtener los datos de terremotos..."
+        Rake::Task['fetch_earthquake_data:fetch'].invoke
+      end
+    end
   end
 end
