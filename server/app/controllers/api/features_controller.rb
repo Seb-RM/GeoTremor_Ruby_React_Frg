@@ -1,4 +1,4 @@
-class Api::V1::FeaturesController < ApplicationController
+class Api::FeaturesController < ApplicationController
   def index
   if params[:filters].present? && params[:filters][:magType].present?
     features = Feature.filter_by_mag_type(params[:filters][:magType])

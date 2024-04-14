@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
 
   namespace :api do
-    namespace :v1 do
       get 'features/index'
       resources :features, only: [:index]
-    end
   end
   
   resources :features
