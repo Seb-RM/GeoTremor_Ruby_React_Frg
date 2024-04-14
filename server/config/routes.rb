@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :api do
-      get 'features/index'
-      resources :features, only: [:index]
+    resources :features, only: [:index] do
+      resources :comments, only: [:create]
+    end
   end
   
   resources :features
